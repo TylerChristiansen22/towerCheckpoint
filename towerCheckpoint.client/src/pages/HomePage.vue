@@ -6,11 +6,11 @@
         <p class="ms-5 fs-4">real events for real people</p>
       </div>
     <section class="row my-2 justify-content-around">
-      <button class="btn col-2 btn-outline-light" @click="filterBy='' ">All</button>
-      <button class="btn col-2 btn-outline-light" @click="filterBy='concert' ">Concerts</button>
-      <button class="btn col-2 btn-outline-light" @click="filterBy='convention' ">Conventions</button>
-      <button class="btn col-2 btn-outline-light" @click="filterBy='sport' ">Sports</button>
-      <button class="btn col-2 btn-outline-light" @click="filterBy='digital' ">Digital</button>
+      <button class="btn col col-md-2 btn-outline-light" @click="filterBy='' ">All</button>
+      <button class="btn col col-md-2 btn-outline-light" @click="filterBy='concert' ">Concerts</button>
+      <button class="btn col col-md-2 btn-outline-light" @click="filterBy='convention' ">Conventions</button>
+      <button class="btn col col-md-2 btn-outline-light" @click="filterBy='sport' ">Sports</button>
+      <button class="btn col col-md-2 btn-outline-light" @click="filterBy='digital' ">Digital</button>
     </section>
     <section class="row">
       <div v-for="event in events" :key="event.id" class="col-6 col-md-3">

@@ -21,10 +21,11 @@ class EventService {
         await event.populate('creator ticketCount')
         return event
     }
-    async editEvent(eventId, updates) {
+    async editEvent(eventId, updates, userId) {
         const originalEvent = await dbContext.Events.findById(eventId)
         if (!originalEvent) throw new BadRequest(`No event at id ${eventId}`)
         if (originalEvent.isCanceled) throw new BadRequest('This event is cancelled already')
+        if (originalEvent.creatorId != userId) throw new Forbidden('This is not your event to edit!')
         originalEvent.name = updates.name || originalEvent.name
         originalEvent.description = updates.description || originalEvent.description
         originalEvent.coverImg = updates.coverImg || originalEvent.coverImg
