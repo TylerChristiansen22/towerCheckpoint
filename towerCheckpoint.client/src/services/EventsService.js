@@ -10,6 +10,11 @@ class EventsService{
         logger.log('Got Events', res.data)
         AppState.events = res.data.map(event => new Event(event))
     }
+
+    async getEventById(eventId){
+        const res = await api.get(`api/events/${eventId}`)
+        AppState.activeEvent = new Event(res.data)
+    }
 }
 
 

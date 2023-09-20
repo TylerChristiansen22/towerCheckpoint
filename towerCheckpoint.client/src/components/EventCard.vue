@@ -1,14 +1,16 @@
 <template>
-    <div class="card event-card background-img m-2 justify-content-end">
+    <RouterLink :to="{path: `events/${event.id}`}">
+        <div class="card event-card background-img m-2 justify-content-end">
             <div class="col-12">
                 <div class="glass">
-                    <p class="text-start fw-bold m-0">{{ event.title }}</p>
+                    <p class="text-start fw-bold m-0">{{ event.name }}</p>
                     <p class="text-start m-0">{{ event.type }}</p>
                     <p class="text-start m-0">{{ event.startDate }}</p>
                     <p class="text-end m-0">{{ event.ticketCount }} tickets left</p>
                 </div>
             </div>
-    </div>
+        </div>
+    </RouterLink>
 </template>
 
 
@@ -16,13 +18,15 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { Event } from '../models/Event.js'; 
+import { RouterLink } from 'vue-router';
 export default {
-    props: {event: {type: Event || Object, required:true}},
-    setup(props){
-    return {  
-        eventCover: computed(() => `url(${props.event.coverImg}`)
-    }
-    }
+    props: { event: { type: Event || Object, required: true } },
+    setup(props) {
+        return {
+            eventCover: computed(() => `url(${props.event.coverImg}`)
+        };
+    },
+    components: { RouterLink }
 };
 </script>
 

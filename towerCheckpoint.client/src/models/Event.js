@@ -15,5 +15,6 @@ export class Event{
         this.ticketCount = data.ticketCount
         this.createdAt = data.createdAt
         this.updatedAt = data.updatedAt
+        this.name = data.name
     }
 }
