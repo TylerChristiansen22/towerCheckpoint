@@ -13,6 +13,12 @@
                     <button class="btn btn-success">Attend</button>
                 </div>
             </div>
+            <div class="row justify-content-center">
+                <CommentForm/>
+                <div v-for="comment in comments" :key="comment.id" class="col-3">
+                    {{ comments.body }}
+                </div>
+            </div>
         </section>
     </div>
 </template>
@@ -28,7 +34,8 @@ export default {
     setup(){
         const route = useRoute();
         watchEffect(()=> {
-            getEventById()
+            getEventById();
+            getCommentsByEventId();
         });
         async function getEventById(){
             try {
@@ -37,9 +44,17 @@ export default {
                 Pop.error(error)
             }
         }
+        async function getCommentsByEventId(){
+            try {
+                await eventsService.getCommentsByEventId(route.params.eventId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
     return { 
         user: computed(()=> AppState.user),
-        event: computed(()=> AppState.activeEvent)
+        event: computed(()=> AppState.activeEvent),
+        comments: computed(()=> AppState.activeEventComments)
     }
     }
 };

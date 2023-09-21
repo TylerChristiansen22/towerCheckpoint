@@ -6,7 +6,7 @@
                     <p class="text-start fw-bold m-0">{{ event.name }}</p>
                     <p class="text-start m-0">{{ event.type }}</p>
                     <p class="text-start m-0">{{ event.startDate }}</p>
-                    <p class="text-end m-0">{{ event.ticketCount }} tickets left</p>
+                    <p class="text-end m-0">{{ event.capacity - event.ticketCount }} tickets left</p>
                 </div>
             </div>
         </div>
