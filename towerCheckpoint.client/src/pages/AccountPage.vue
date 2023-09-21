@@ -1,8 +1,9 @@
 <template>
   <div class="container-fluid bg-dark">
+    <EventFormModal />
     <section class="row">
       <div v-for="ticket in tickets" :key="ticket.id">
-        <MyEventsCard :ticket="ticket"/>
+        <MyEventsCard :ticket="ticket" />
       </div>
     </section>
   </div>
@@ -16,10 +17,10 @@ import { ticketsService } from '../services/TicketsService.js';
 import { accountService } from '../services/AccountService.js';
 export default {
   setup() {
-    onMounted(()=> {
+    onMounted(() => {
       getMyTickets()
     })
-    async function getMyTickets(){
+    async function getMyTickets() {
       try {
         await accountService.getMyTickets()
       } catch (error) {
@@ -28,7 +29,7 @@ export default {
     }
     return {
       account: computed(() => AppState.account),
-      tickets: computed(()=> AppState.myTickets)
+      tickets: computed(() => AppState.myTickets)
     }
   }
 }
