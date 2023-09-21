@@ -18,6 +18,9 @@
                 Manage Account
               </div>
             </router-link>
+            <div class="list-group-item dropdown-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalId">
+              Create Event
+            </div>
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
@@ -33,6 +36,7 @@
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import { AuthService } from '../services/AuthService'
+import Pop from '../utils/Pop.js'
 export default {
   setup() {
     return {

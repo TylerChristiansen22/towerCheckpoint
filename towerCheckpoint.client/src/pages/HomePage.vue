@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid bg-dark">
+    <EventFormModal/>
     <div class="card main-img justify-content-center">
         <p class="ms-5 fs-4">Get ahead of the scalpers</p>
         <p class="ms-5 fs-4">Reserve your seats now with</p>

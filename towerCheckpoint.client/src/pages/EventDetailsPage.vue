@@ -10,7 +10,7 @@
                 <p>{{ event.description }}</p>
                 <p :class="{'danger': (event.capacity - event.ticketCount) == 0}" >{{ event.capacity - event.ticketCount }} tickets left</p>
                 <div class="justify-content-end">
-                    <button v-if="!hasTicket && user.isAuthenticated" :disabled="inProgress" @click="createTicket" class="btn btn-success">Attend</button>
+                    <button v-if="!hasTicket && user.isAuthenticated && !event.isCanceled && (event.capacity != event.ticketCount)" :disabled="inProgress" @click="createTicket" class="btn btn-success">Attend</button>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -21,8 +21,13 @@
             </div>
             <div class="row justify-content-center">
                 <CommentForm/>
-                <div v-for="comment in comments" :key="comment.id">
-                    <CommentCard :comment="comment"/>
+                <div v-if="comments.length">
+                    <div v-for="comment in comments" :key="comment.id">
+                        <CommentCard :comment="comment"/>
+                    </div>
+                </div>
+                <div v-else>
+                    <p class="vh-100 ms-5 ps-5">Be the first to comment!</p>
                 </div>
             </div>
         </section>

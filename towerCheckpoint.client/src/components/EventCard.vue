@@ -2,7 +2,7 @@
     <RouterLink :to="{path: `events/${event.id}`}">
         <div class="card event-card background-img m-2 justify-content-end">
             <div class="col-12">
-                <div class="glass">
+                <div class="glass p-2">
                     <p class="text-start fw-bold m-0">{{ event.name }}</p>
                     <p class="text-start m-0">{{ event.type }}</p>
                     <p class="text-start m-0">{{ event.startDate }}</p>

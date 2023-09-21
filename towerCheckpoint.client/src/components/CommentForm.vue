@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid">
-        <form @submit.prevent="createComment" class="row justify-content-center">
+        <form @submit.prevent="createComment" class="row justify-content-center p-1">
             <div class="col-12 col-md-10">
                 <label for="comment-body">Comment:</label>
                 <textarea v-model="commentData.body" class="form-control" id="comment-body" placeholder="Comment Body"></textarea>
             </div>
-            <div class="row justify-content-end">
+            <div class="row justify-content-end p-1">
                 <div class="col-6 col-md-3">
                     <button class="btn btn-success ms-md-5">Post Comment</button>
                 </div>
