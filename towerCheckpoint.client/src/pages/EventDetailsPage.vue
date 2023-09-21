@@ -15,8 +15,8 @@
             </div>
             <div class="row justify-content-center">
                 <CommentForm/>
-                <div v-for="comment in comments" :key="comment.id" class="col-3">
-                    {{ comments.body }}
+                <div v-for="comment in comments" :key="comment.id">
+                    <CommentCard :comment="comment"/>
                 </div>
             </div>
         </section>
