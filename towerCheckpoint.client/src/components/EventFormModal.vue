@@ -45,7 +45,7 @@
                             </select>
                         </div>
                         <div class="col-2">
-                            <button type="button" class="btn btn-primary mt-5">Create Event</button>
+                            <button type="submit" class="btn btn-primary mt-5">Create Event</button>
                         </div>
                     </form>
                     </div>
@@ -63,6 +63,7 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import { eventsService } from '../services/EventsService.js';
 import { Modal } from 'bootstrap';
+import { logger } from '../utils/Logger.js';
 export default {
     setup(){
         const eventData = ref({})
@@ -70,17 +71,16 @@ export default {
         function resetForm(){
             eventData.value = {}
         }
-        onMounted(()=>{
-            resetForm()
-        })
     return {
         eventData,
         async createEvent(){
             try {
+                logger.log('Is this working?')
                 let newEvent = await eventsService.createEvent(eventData.value)
                 Pop.toast('Event Created!', 'success')
                 resetForm()
                 Modal.getOrCreateInstance('#modalId').hide()
+                logger.log(newEvent)
                 router.push({name: 'Event Details', params: {eventId: newEvent.id}})
             } catch (error) {
                 Pop.error(error)

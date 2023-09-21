@@ -15,7 +15,7 @@
           <div class="list-group">
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
-                Manage Account
+                My Events
               </div>
             </router-link>
             <div class="list-group-item dropdown-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#modalId">

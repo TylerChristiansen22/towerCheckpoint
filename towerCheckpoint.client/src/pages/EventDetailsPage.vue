@@ -1,4 +1,5 @@
 <template>
+    <EventFormModal/>
     <div class="container-fluid bg-dark">
         <section v-if="event" class="row bg-dark">
             <div class="col-12 col-md-4">
@@ -8,9 +9,11 @@
                 <p>{{ event.name }}</p>
                 <p>{{ event.location }}</p>
                 <p>{{ event.description }}</p>
-                <p :class="{'danger': (event.capacity - event.ticketCount) == 0}" >{{ event.capacity - event.ticketCount }} tickets left</p>
-                <div class="justify-content-end">
+                <p v-if="!event.isCanceled" :class="{'danger': (event.capacity - event.ticketCount) == 0}" >{{ event.capacity - event.ticketCount }} tickets left</p>
+                <p v-else class="text-danger">This event has been canceled</p>
+                <div>
                     <button v-if="!hasTicket && user.isAuthenticated && !event.isCanceled && (event.capacity != event.ticketCount)" :disabled="inProgress" @click="createTicket" class="btn btn-success">Attend</button>
+                    <button v-if="account.id == event.creatorId  && !event.isCanceled" @click="cancelEvent" class="btn btn-danger ms-1">Cancel Event</button>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -75,6 +78,7 @@ export default {
     return { 
         inProgress,
         user: computed(()=> AppState.user),
+        account: computed(()=> AppState.account),
         event: computed(()=> AppState.activeEvent),
         comments: computed(()=> AppState.activeEventComments),
         tickets: computed(()=> AppState.activeEventTickets),
@@ -85,6 +89,13 @@ export default {
                 inProgress.value = true
                 let ticketData = {eventId: route.params.eventId}
                 await ticketsService.createTicket(ticketData)
+            } catch (error) {
+                Pop.error(error)
+            }
+        },
+        async cancelEvent(){
+            try {
+                await eventsService.cancelEvent(route.params.eventId)
             } catch (error) {
                 Pop.error(error)
             }

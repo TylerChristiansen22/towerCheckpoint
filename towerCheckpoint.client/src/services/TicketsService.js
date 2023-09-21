@@ -13,6 +13,13 @@ class TicketsService{
         AppState.activeEventTickets.push(new Ticket(res.data))
         AppState.activeEvent.ticketCount++
     }
+
+    async deleteTicket(ticketId){
+        const res = await api.delete(`api/tickets/${ticketId}`)
+        logger.log(res.data)
+        let indexToRemove = AppState.myTickets.findIndex(ticket => ticket.id == ticketId)
+        AppState.myTickets.splice(indexToRemove, 1)
+    }
 }
 
 export const ticketsService = new TicketsService()
