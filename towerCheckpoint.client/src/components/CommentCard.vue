@@ -1,6 +1,6 @@
 <template>
     <section class="row justify-content-center my-2">
-        <div class="col-1 border">
+        <div class="col-9 col-md-1 border">
             <img class="profile-pic" :src="comment.creator.picture" :alt="comment.creator.name">
         </div>
         <div class="col-9 border">

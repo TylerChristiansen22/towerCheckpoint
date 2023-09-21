@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid bg-dark">
         <section v-if="event" class="row bg-dark">
-            <div class="col-4">
+            <div class="col-12 col-md-4">
                 <img class="sizing" :src="event.coverImg" :alt="event.name">
             </div>
             <div class="col-8">
@@ -10,7 +10,13 @@
                 <p>{{ event.description }}</p>
                 <p :class="{'danger': (event.capacity - event.ticketCount) == 0}" >{{ event.capacity - event.ticketCount }} tickets left</p>
                 <div class="justify-content-end">
-                    <button class="btn btn-success">Attend</button>
+                    <button v-if="!hasTicket && user.isAuthenticated" :disabled="inProgress" @click="createTicket" class="btn btn-success">Attend</button>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <p>People attending:</p>
+                    <img :title="ticket.profile.name" class="attendee" v-for="ticket in tickets" :key="ticket.id" :src="ticket.profile.picture" alt="">
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -26,16 +32,19 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted, watchEffect } from 'vue';
+import { computed, reactive, onMounted, watchEffect, ref } from 'vue';
 import Pop from '../utils/Pop.js';
 import { eventsService } from '../services/EventsService.js';
 import { useRoute } from 'vue-router';
+import {ticketsService} from '../services/TicketsService.js'
 export default {
     setup(){
         const route = useRoute();
+        const inProgress = ref(false)
         watchEffect(()=> {
             getEventById();
             getCommentsByEventId();
+            getTicketsByEventId();
         });
         async function getEventById(){
             try {
@@ -51,10 +60,30 @@ export default {
                 Pop.error(error)
             }
         }
+        async function getTicketsByEventId(){
+            try {
+                await eventsService.getTicketsByEventId(route.params.eventId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
     return { 
+        inProgress,
         user: computed(()=> AppState.user),
         event: computed(()=> AppState.activeEvent),
-        comments: computed(()=> AppState.activeEventComments)
+        comments: computed(()=> AppState.activeEventComments),
+        tickets: computed(()=> AppState.activeEventTickets),
+        hasTicket: computed(()=> AppState.activeEventTickets.find(ticket => ticket.accountId == AppState.account.id)),
+
+        async createTicket(){
+            try {
+                inProgress.value = true
+                let ticketData = {eventId: route.params.eventId}
+                await ticketsService.createTicket(ticketData)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
     }
     }
 };
@@ -71,5 +100,13 @@ export default {
 
 .danger{
     color: red;
+}
+
+.attendee{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
 </style>
