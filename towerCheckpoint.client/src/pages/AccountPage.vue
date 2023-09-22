@@ -1,11 +1,9 @@
 <template>
   <div class="container-fluid bg-dark">
     <EventFormModal />
-    <section class="row">
-      <div v-for="ticket in tickets" :key="ticket.id">
-        <MyEventsCard :ticket="ticket" />
-      </div>
-    </section>
+    <div v-for="ticket in tickets" :key="ticket.id">
+      <MyEventsCard :ticket="ticket" />
+    </div>
   </div>
 </template>
 

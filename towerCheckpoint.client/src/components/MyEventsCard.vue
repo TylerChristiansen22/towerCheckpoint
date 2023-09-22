@@ -1,15 +1,16 @@
 <template>
-    <div class="card event-card background m-2 justify-content-end">
-        <img :src="ticket.event.coverImg" alt="">
-        <div class="col-12">
-            <div class="glass p-2">
-                <p class="text-start fw-bold m-0">{{ ticket.event.name }}</p>
-                <p class="text-start m-0">{{ ticket.event.type }}</p>
-                <p class="text-start m-0">{{ ticket.startDate }}</p>
-                <button @click="deleteTicket" class="btn btn-danger">Delete Ticket</button>
+    <section class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="card event-card background m-2 justify-content-end">
+                <div class="glassEffect p-2">
+                    <p class="text-start fw-bold m-0">{{ ticket.event.name }}</p>
+                    <p class="text-start m-0">{{ ticket.event.type }}</p>
+                    <p class="text-start m-0">{{ ticket.startDate }}</p>
+                    <button @click="deleteTicket" class="btn btn-danger">Delete Ticket</button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </template>
 
 
@@ -49,7 +50,7 @@ export default {
     overflow: hidden;
 }
 
-.glass {
+.glassEffect {
     /* From https://css.glass */
     background: rgba(255, 255, 255, 0.43);
     border-radius: 5px;
@@ -62,5 +63,6 @@ export default {
     background-image: v-bind(ticketEventCover);
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 </style>
